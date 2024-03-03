@@ -5,7 +5,7 @@ const port = 3000;
 const MongoClient = require("mongodb");
 
 app.get("/", (req, res) => {
-  res.send("Hello World!epic");
+  res.send("Hello World!epicpls");
 });
 
 app.get("/quizzes", async (req, res) => {
