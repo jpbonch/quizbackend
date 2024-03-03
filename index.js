@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const app = express();
 const port = 443;
-const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require("mongodb");
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
