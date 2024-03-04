@@ -1,28 +1,31 @@
 const express = require("express");
 require("dotenv").config();
 const app = express();
+app.use(express.json());
 const port = 3000;
-const MongoClient = require("mongodb");
-// test comment
+const mongoose = require('mongoose');
+const { Quiz, Question, User } = require("./models/models");
+
 app.get("/", (req, res) => {
-  res.send("testing changes");
+  res.send("Home");
 });
 
 app.get("/quizzes", async (req, res) => {
-  const connectionString = process.env.ATLAS_URI || "";
-  const client = new MongoClient(connectionString);
-  let conn;
-  try {
-    conn = await client.connect();
-  } catch (e) {
-    console.error(e);
-  }
-  let db = conn.db("quizapp");
-  let collection = await db.collection("quizzes");
-  let results = await collection.find({}).limit(50).toArray();
-  res.send(results).status(200);
+  const allQuizzes = await Quiz.find();
+  return res.status(200).json(allQuizzes);
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+
+const start = async () => {
+  try {
+    await mongoose.connect(
+      process.env.ATLAS_URI
+    );
+    app.listen(3000, () => console.log("Server started on port 3000"));
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+
+start();
