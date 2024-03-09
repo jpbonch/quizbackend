@@ -6,7 +6,7 @@ const QuizSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  question_ids: [Question]
-});
+  questions: [mongoose.ObjectId]
+}, {collection: "quizzes"});
 
 module.exports = QuizSchema;
