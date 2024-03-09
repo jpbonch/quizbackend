@@ -4,11 +4,8 @@ const cors = require("cors")
 const app = express();
 app.use(cors())
 app.use(express.json());
-<<<<<<< HEAD
-=======
 const http = require('http');
 const server = http.createServer(app);
->>>>>>> sockets
 const mongoose = require('mongoose');
 const { Server } = require("socket.io");
 const io = new Server(server, {
@@ -67,11 +64,7 @@ const start = async () => {
     await mongoose.connect(
       process.env.ATLAS_URI
     );
-<<<<<<< HEAD
-    app.listen(4000, () => console.log("Server started on port 4000"));
-=======
     server.listen(4000, () => console.log("Server started on port 4000"));
->>>>>>> sockets
   } catch (error) {
     console.error(error);
     process.exit(1);
