@@ -4,8 +4,17 @@ const cors = require("cors")
 const app = express();
 app.use(cors())
 app.use(express.json());
-const http = require('http');
-const server = http.createServer(app);
+const https = require('https');
+const fs = require("fs");
+
+var key = fs.readFileSync(__dirname + '/selfsigned.key');
+var cert = fs.readFileSync(__dirname + '/selfsigned.crt');
+var options = {
+  key: key,
+  cert: cert
+};
+
+const server = https.createServer(options, app);
 const mongoose = require('mongoose');
 const { Server } = require("socket.io");
 const io = new Server(server, {
@@ -14,7 +23,6 @@ const io = new Server(server, {
     methods: ["GET", "POST", "PUT", "DELETE"],
   }
 });
-
 
 
 const { Quiz, Question, User } = require("./models/models");

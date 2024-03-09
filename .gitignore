@@ -1,3 +1,5 @@
 node_modules
 .env
 deploy.log
+*.crt
+*.key
