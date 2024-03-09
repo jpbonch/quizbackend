@@ -5,6 +5,7 @@ const app = express();
 app.use(cors())
 app.use(express.json());
 const https = require('https');
+const http = require('http');
 const fs = require("fs");
 
 var key = fs.readFileSync(__dirname + '/selfsigned.key');
@@ -14,7 +15,13 @@ var options = {
   cert: cert
 };
 
-const server = https.createServer(options, app);
+let server;
+if (process.env.NODE_ENV === "development") {
+  server = http.createServer(app);
+} else {
+  server = https.createServer(options, app);
+}
+
 const mongoose = require('mongoose');
 const { Server } = require("socket.io");
 const io = new Server(server, {
@@ -34,7 +41,8 @@ app.get("/", (req, res) => {
 app.get("/quizzes", async (req, res) => {
   const allQuizzes = await Quiz.find().select({
     "category": 1,
-    "_id": 1
+    "_id": 1,
+    "image":1
   });
   return res.status(200).json(allQuizzes);
 });

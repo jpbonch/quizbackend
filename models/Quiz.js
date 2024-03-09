@@ -6,6 +6,7 @@ const QuizSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: String,
   questions: [mongoose.ObjectId]
 }, {collection: "quizzes"});
 
