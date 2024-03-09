@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const QuestionSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-  },
-  body: {
     text: {
       type: String,
     },
@@ -25,7 +21,6 @@ const QuestionSchema = new mongoose.Schema({
     correct: {
       type: String,
     },
-  },
 });
 
 module.exports = QuestionSchema;

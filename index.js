@@ -24,8 +24,22 @@ app.get("/", (req, res) => {
 });
 
 app.get("/quizzes", async (req, res) => {
-  const allQuizzes = await Quiz.find();
+  const allQuizzes = await Quiz.find().select({
+    "category": 1,
+    "_id": 1
+  });
   return res.status(200).json(allQuizzes);
+});
+
+app.get("/quiz/:id", async (req, res) => {
+  const quiz = await Quiz.findById(req.params.id);
+  return res.status(200).json(quiz);
+});
+
+
+app.get("/users", async (req, res) => {
+  const allUsers = await User.find();
+  return res.status(200).json(allUsers);
 });
 
 let lastsocket;
